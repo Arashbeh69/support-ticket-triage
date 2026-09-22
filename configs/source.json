@@ -1,0 +1,16 @@
+{
+  "dataset": "BANKING77",
+  "repository": "https://github.com/PolyAI-LDN/task-specific-datasets",
+  "commit": "57ec275d8078af65b7731c2a98be812d844a6d6b",
+  "retrieval_files": {
+    "train.csv": "banking_data/train.csv",
+    "test.csv": "banking_data/test.csv",
+    "categories.json": "banking_data/categories.json",
+    "LICENSE": "LICENSE"
+  },
+  "expected_schema": ["text", "category"],
+  "expected_counts": {"train.csv": 10003, "test.csv": 3080},
+  "expected_label_count": 77,
+  "licence": "CC BY 4.0"
+}
+
