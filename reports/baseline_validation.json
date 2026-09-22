@@ -1,0 +1,33 @@
+{
+  "artifact_bytes": 10556044,
+  "artifact_sha256": "6bb792501310dcbd597441f1fc2d58141a3ddcbf9a98a9c4a75b1ab056071192",
+  "config_sha256": "2e5adcb8da5ff506e59e60e7ba1e71ae756e156cd772d17d583bbfc7fac8a8ca",
+  "development_rows": 8416,
+  "majority_reference": {
+    "accuracy": 0.017806267806267807,
+    "log_loss": 4.311259667737207,
+    "macro_f1": 0.0004544091318059127,
+    "multiclass_brier": 0.9862260019101301,
+    "top_3_accuracy": 0.053418803418803416,
+    "weighted_f1": 0.0006230324634803291
+  },
+  "model": "word-character TF-IDF multinomial logistic regression",
+  "official_test_used": false,
+  "selected": {
+    "accuracy": 0.9017094017094017,
+    "c": 4.0,
+    "class_weight": "none",
+    "feature_fit_seconds": 0.7857047999277711,
+    "features": 22081,
+    "iterations": 40,
+    "log_loss": 0.4983022552469272,
+    "macro_f1": 0.9019307460214905,
+    "model_fit_seconds": 13.302094399929047,
+    "multiclass_brier": 0.1882487717385163,
+    "representation": "redacted_text",
+    "top_3_accuracy": 0.9743589743589743,
+    "weighted_f1": 0.9014608501622459
+  },
+  "selection_metric": "macro_f1",
+  "validation_rows": 1404
+}

@@ -1,0 +1,23 @@
+{
+  "class_support": {
+    "development_max": 157,
+    "development_min": 28,
+    "validation_max": 28,
+    "validation_min": 4
+  },
+  "counts": {
+    "development": 8416,
+    "excluded_test_overlap": 183,
+    "official_test_held_out": 3080,
+    "validation": 1404
+  },
+  "duplicate_groups_crossing_partitions": 0,
+  "labels_in_development": 77,
+  "labels_in_validation": 77,
+  "manifest_sha256": "2b11d946e481a6f2e14d8b7c3229a99d7a2258cd8e5ce3b7ec173f462a273225",
+  "method": "StratifiedGroupKFold candidate closest to 1/7 validation",
+  "near_duplicate_threshold": 0.98,
+  "private_manifest_sha256": "7ea889e87054ca548a6c6384dd1b27ed165b5d7e44123843f2a95193783c8633",
+  "seed": 20260922,
+  "test_used_for_split_selection": false
+}
