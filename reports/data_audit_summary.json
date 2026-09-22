@@ -1,0 +1,45 @@
+{
+  "class_distribution": {
+    "test_max": 40,
+    "test_min": 40,
+    "train_max": 187,
+    "train_min": 35
+  },
+  "duplicates": {
+    "conflicting_label_exact_groups_train": 1,
+    "cross_split_candidate_pairs": 195,
+    "exact_duplicate_groups_train": 26,
+    "generalized_template_groups_train": 5,
+    "near_duplicate_candidate_pairs_train": 207,
+    "near_duplicate_threshold": 0.98,
+    "near_duplicate_threshold_sensitivity": {
+      "0.90": 1688,
+      "0.92": 1182,
+      "0.95": 628,
+      "0.96": 482,
+      "0.97": 351,
+      "0.98": 207,
+      "0.99": 130
+    },
+    "rows_in_exact_duplicate_groups_train": 52,
+    "training_rows_excluded_for_test_overlap": 183
+  },
+  "labels": 77,
+  "privacy": {
+    "detections_by_disposition": {
+      "quarantine": 14
+    },
+    "detections_by_rule": {
+      "credential_value": 14
+    },
+    "raw_flagged_examples_published": false,
+    "rows_flagged": 14,
+    "rows_quarantined": 14
+  },
+  "rows": {
+    "test": 3080,
+    "train": 10003
+  },
+  "source_commit": "57ec275d8078af65b7731c2a98be812d844a6d6b",
+  "test_labels_used_for_model_selection": false
+}

@@ -6,7 +6,7 @@ import csv
 import hashlib
 import json
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -62,7 +62,9 @@ def acquire_and_verify(contract_path: Path, private_root: Path) -> dict[str, Any
         _download(url, raw_dir / name)
 
     categories = json.loads((raw_dir / "categories.json").read_text(encoding="utf-8"))
-    if len(categories) != contract["expected_label_count"] or len(set(categories)) != len(categories):
+    if len(categories) != contract["expected_label_count"] or len(set(categories)) != len(
+        categories
+    ):
         raise ValueError("Source categories are not 77 unique labels")
 
     split_audits = {
@@ -85,7 +87,7 @@ def acquire_and_verify(contract_path: Path, private_root: Path) -> dict[str, Any
         "dataset": contract["dataset"],
         "repository": contract["repository"],
         "commit": commit,
-        "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
+        "retrieved_at_utc": datetime.now(UTC).isoformat(),
         "source_urls": urls,
         "licence": contract["licence"],
         "schema": contract["expected_schema"],
@@ -98,6 +100,7 @@ def acquire_and_verify(contract_path: Path, private_root: Path) -> dict[str, Any
     }
     metadata_path = private_root / "validation" / "source_audit.json"
     metadata_path.parent.mkdir(parents=True, exist_ok=True)
-    metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    metadata_path.write_text(
+        json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return metadata
-

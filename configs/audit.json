@@ -1,0 +1,17 @@
+{
+  "near_duplicate_threshold": 0.98,
+  "near_duplicate_candidate_neighbors": 6,
+  "near_duplicate_threshold_sensitivity": [0.90, 0.92, 0.95, 0.96, 0.97, 0.98, 0.99],
+  "validation_folds": 7,
+  "split_seed": 20260922,
+  "high_risk_intents": [
+    "cash_withdrawal_not_recognised",
+    "card_payment_not_recognised",
+    "compromised_card",
+    "direct_debit_payment_not_recognised",
+    "lost_or_stolen_card",
+    "lost_or_stolen_phone",
+    "verify_source_of_funds",
+    "unable_to_verify_identity"
+  ]
+}
