@@ -13,7 +13,7 @@
   "docker": {
     "base_image": "python:3.12.11-slim-bookworm",
     "base_image_sha256": "519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7",
-    "build_context_bytes_observed": 4220,
+    "full_build_context_bytes_observed": 869980,
     "container_health_smoke": "passed",
     "image_id": "sha256:84945c42a1ac0eb0d405256f70ed0b11866fa431a4076c32825f9472dbd2597b",
     "image_size_bytes": 190901857,
@@ -22,7 +22,7 @@
   },
   "external_deployment_performed": false,
   "notes": [
-    "Measurements describe the final local frozen-baseline build.",
+    "Measurements describe the final local frozen-baseline build; later cached rebuilds transferred only changed context bytes.",
     "The image contains no dataset rows or model artifact.",
     "CI is prepared but has not run on a remote host because no remote was created."
   ]
