@@ -1,0 +1,26 @@
+{
+  "base_model": "distilbert/distilroberta-base",
+  "counts_above": {
+    "128": 0,
+    "32": 655,
+    "48": 127,
+    "64": 26,
+    "96": 0
+  },
+  "licence": "Apache-2.0",
+  "mean": 15.815173116089612,
+  "minimum": 4,
+  "official_test_used": false,
+  "percentiles": {
+    "100": 93.0,
+    "50": 13.0,
+    "90": 27.0,
+    "95": 36.0,
+    "99": 51.0,
+    "99.5": 57.0,
+    "99.9": 73.0
+  },
+  "representation": "redacted_text",
+  "revision": "fb53ab8802853c8e4fbdbcd0529f21fc6f459b2b",
+  "rows": 9820
+}

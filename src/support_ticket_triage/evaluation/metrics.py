@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 import numpy as np
-from sklearn.metrics import accuracy_score, f1_score, log_loss
+from sklearn.metrics import accuracy_score, f1_score
 
 
 def multiclass_brier(y_true_indices: np.ndarray, probabilities: np.ndarray) -> float:
@@ -17,6 +17,7 @@ def multiclass_brier(y_true_indices: np.ndarray, probabilities: np.ndarray) -> f
 
 def top_k_accuracy(y_true_indices: np.ndarray, probabilities: np.ndarray, k: int) -> float:
     """Return the share of true labels appearing among the k largest probabilities."""
+    k = min(k, probabilities.shape[1])
     top = np.argpartition(probabilities, -k, axis=1)[:, -k:]
     return float(np.mean(np.any(top == y_true_indices[:, None], axis=1)))
 
@@ -30,11 +31,12 @@ def classification_metrics(
     """Calculate the model-selection metrics without consulting test data."""
     label_to_index = {label: index for index, label in enumerate(probability_labels)}
     y_indices = np.array([label_to_index[label] for label in y_true], dtype=int)
+    true_probability = np.clip(probabilities[np.arange(len(y_indices)), y_indices], 1e-15, 1.0)
     return {
         "macro_f1": float(f1_score(y_true, y_pred, average="macro", zero_division=0)),
         "weighted_f1": float(f1_score(y_true, y_pred, average="weighted", zero_division=0)),
         "accuracy": float(accuracy_score(y_true, y_pred)),
         "top_3_accuracy": top_k_accuracy(y_indices, probabilities, k=3),
-        "log_loss": float(log_loss(y_true, probabilities, labels=probability_labels)),
+        "log_loss": float(-np.log(true_probability).mean()),
         "multiclass_brier": multiclass_brier(y_indices, probabilities),
     }

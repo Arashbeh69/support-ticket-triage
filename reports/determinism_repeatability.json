@@ -1,0 +1,26 @@
+{
+  "cublas_workspace_config": ":4096:8",
+  "cuda": "12.8",
+  "device": "NVIDIA GeForce GTX 1650 Ti with Max-Q Design",
+  "flash_attention_enabled": false,
+  "limitation": "This does not promise bitwise identity across other hardware or software stacks.",
+  "math_attention_enabled": true,
+  "memory_efficient_attention_enabled": false,
+  "scope": "two identical one-step GPU trials on the pinned stack and device",
+  "strict_repeatability_observed": true,
+  "tf32_cudnn_enabled": false,
+  "tf32_matmul_enabled": false,
+  "torch": "2.8.0+cu128",
+  "trials": [
+    {
+      "classifier_weight_sha256_after_step": "a15d78b1fee049bad890c5f0fb6e12fccc16fcb465c73f1ade8ad9f98fc50086",
+      "loss": 4.45458984375,
+      "peak_cuda_bytes": 1718974976
+    },
+    {
+      "classifier_weight_sha256_after_step": "a15d78b1fee049bad890c5f0fb6e12fccc16fcb465c73f1ade8ad9f98fc50086",
+      "loss": 4.45458984375,
+      "peak_cuda_bytes": 1718974976
+    }
+  ]
+}

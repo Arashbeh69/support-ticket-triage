@@ -1,0 +1,9 @@
+{
+  "base_model": "distilbert/distilroberta-base",
+  "bytes": 328722980,
+  "licence": "Apache-2.0",
+  "relative_private_path": "models/transformer/model.safetensors",
+  "revision": "fb53ab8802853c8e4fbdbcd0529f21fc6f459b2b",
+  "sha256": "b9ea66e8db09432d643e75358fc41571c5fc6359f17b2419aebd9b681fd0d255",
+  "stored_in_git": false
+}

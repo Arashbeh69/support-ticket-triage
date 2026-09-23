@@ -1,0 +1,78 @@
+{
+  "artifact_bytes": 328722980,
+  "artifact_sha256": "b9ea66e8db09432d643e75358fc41571c5fc6359f17b2419aebd9b681fd0d255",
+  "best_epoch": 6,
+  "config_sha256": "a3d437b6cb92ca58d1f192c53b80c657b8e181c56ad2aad38a0484516e622c09",
+  "cuda_version": "12.8",
+  "device": "NVIDIA GeForce GTX 1650 Ti with Max-Q Design",
+  "effective_batch_size": 32,
+  "epochs_completed": 6,
+  "epochs_requested": 6,
+  "gradient_accumulation_steps": 4,
+  "history": [
+    {
+      "elapsed_seconds": 37535.062157000066,
+      "epoch": 1,
+      "train_loss": 3.675516803001723,
+      "validation_macro_f1": 0.6125296668154708
+    },
+    {
+      "elapsed_seconds": 38152.08354670007,
+      "epoch": 2,
+      "train_loss": 1.8059938670111246,
+      "validation_macro_f1": 0.7934756019563051
+    },
+    {
+      "elapsed_seconds": 39306.61126370006,
+      "epoch": 3,
+      "train_loss": 1.0484894437028427,
+      "validation_macro_f1": 0.8566694104384679
+    },
+    {
+      "elapsed_seconds": 40486.827188999974,
+      "epoch": 4,
+      "train_loss": 0.7179863353192579,
+      "validation_macro_f1": 0.8876719440921549
+    },
+    {
+      "elapsed_seconds": 41596.59553270007,
+      "epoch": 5,
+      "train_loss": 0.5502287063308542,
+      "validation_macro_f1": 0.9035261801030232
+    },
+    {
+      "elapsed_seconds": 42320.56925349997,
+      "epoch": 6,
+      "train_loss": 0.47754421161608096,
+      "validation_macro_f1": 0.9056890483976797
+    }
+  ],
+  "learning_rate": 2e-05,
+  "licence": "Apache-2.0",
+  "max_grad_norm": 1.0,
+  "max_length": 96,
+  "metric_integrity_correction": {
+    "affected_metrics": [
+      "log_loss"
+    ],
+    "reason": "Recomputed validation log loss directly from the declared probability-column order; the prior sklearn call reordered nonlexicographic labels.",
+    "retrained": false
+  },
+  "model": "distilbert/distilroberta-base",
+  "official_test_used": false,
+  "peak_cuda_bytes": 1741377536,
+  "per_device_batch_size": 8,
+  "precision": "fp16",
+  "revision": "fb53ab8802853c8e4fbdbcd0529f21fc6f459b2b",
+  "training_seconds": 42331.852262499975,
+  "validation": {
+    "accuracy": 0.9102564102564102,
+    "log_loss": 0.4663890302181244,
+    "macro_f1": 0.9056890483976799,
+    "multiclass_brier": 0.1668511949544007,
+    "top_3_accuracy": 0.9786324786324786,
+    "weighted_f1": 0.9098226538808204
+  },
+  "warmup_ratio": 0.1,
+  "weight_decay": 0.01
+}
