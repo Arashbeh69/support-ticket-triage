@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Local support-intent triage demo</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; }
+      body { margin: 0 auto; max-width: 760px; padding: 2rem; color: #172033; }
+      textarea { box-sizing: border-box; min-height: 8rem; padding: .75rem; width: 100%; }
+      button { background: #2557a7; border: 0; color: white; cursor: pointer; margin-top: .75rem; padding: .7rem 1rem; }
+      .notice { background: #eef4ff; border-left: 4px solid #2557a7; padding: .8rem; }
+      #result { background: #f7f8fa; margin-top: 1rem; overflow-wrap: anywhere; padding: 1rem; white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <h1>Local support-intent triage</h1>
+    <p class="notice">Text is sent only to the local <code>/predict</code> endpoint. This portfolio demo is not financial, fraud, security, or identity-verification advice.</p>
+    <label for="message">Short English banking-support message</label>
+    <textarea id="message" maxlength="1000" autocomplete="off"></textarea>
+    <button id="predict" type="button">Predict locally</button>
+    <div id="result" role="status" aria-live="polite">No prediction yet.</div>
+    <script>
+      const button = document.querySelector("#predict");
+      const message = document.querySelector("#message");
+      const result = document.querySelector("#result");
+      button.addEventListener("click", async () => {
+        result.textContent = "Scoring locally…";
+        try {
+          const response = await fetch("/predict", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({text: message.value})
+          });
+          const body = await response.json();
+          result.textContent = response.ok ? JSON.stringify(body, null, 2) : `Review required: ${body.detail}`;
+        } catch (_) {
+          result.textContent = "The local API is unavailable. No text was sent elsewhere.";
+        }
+      });
+    </script>
+  </body>
+</html>

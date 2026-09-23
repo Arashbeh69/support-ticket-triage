@@ -43,7 +43,7 @@ support-triage = "support_ticket_triage.cli:main"
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
+addopts = "-q --basetemp=.pytest-tmp"
 testpaths = ["tests"]
 
 [tool.ruff]
