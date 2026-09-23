@@ -1,0 +1,74 @@
+{
+  "calibration": {
+    "baseline_temperature": 0.5674475741075865,
+    "ece_definition": "top-label ECE with 15 equal-width confidence bins",
+    "method": "scalar temperature scaling",
+    "selection_partition": "validation",
+    "transformer_temperature": 0.661285853382423
+  },
+  "champion": "baseline",
+  "champion_rule": {
+    "maximum_transformer_weighted_f1_regression": 0.002,
+    "minimum_transformer_macro_f1_gain": 0.01,
+    "result": "transformer did not clear the prespecified operational gain rule"
+  },
+  "labels_sha256": "e2d5fe7f39d34d528d5a66f84aedbd0c5928b324fde3a2cc9b3097d36e5f43be",
+  "models": {
+    "baseline": {
+      "bytes": 10556044,
+      "relative_private_path": "models/baseline/tfidf_logistic.joblib",
+      "sha256": "6bb792501310dcbd597441f1fc2d58141a3ddcbf9a98a9c4a75b1ab056071192",
+      "stored_in_git": false
+    },
+    "transformer": {
+      "base_model": "distilbert/distilroberta-base",
+      "bytes": 328722980,
+      "licence": "Apache-2.0",
+      "relative_private_path": "models/transformer/model.safetensors",
+      "revision": "fb53ab8802853c8e4fbdbcd0529f21fc6f459b2b",
+      "sha256": "b9ea66e8db09432d643e75358fc41571c5fc6359f17b2419aebd9b681fd0d255",
+      "stored_in_git": false
+    }
+  },
+  "official_test_used_for_freeze": false,
+  "preprocessing_sha256": {
+    "configs/audit.json": "c449befe2bd9154025827427ccecc6e0422d3dd520121604d02259c9dc986c5a",
+    "configs/labels.json": "e2d5fe7f39d34d528d5a66f84aedbd0c5928b324fde3a2cc9b3097d36e5f43be",
+    "src/support_ticket_triage/data/audit.py": "6a42baac4e8ae05fd1888c14ef12d0287dbca3a84b3ecbc07acdabdca730d414",
+    "src/support_ticket_triage/data/split.py": "3345a80ff90dee7caa826b6067ae1514ec1a95dee031a829d93e5a47514398b3",
+    "src/support_ticket_triage/text.py": "bcab667e430e0392bc6ec3898bed71ea39984700291bea25f3479ba85d275740"
+  },
+  "private_split_manifest_sha256": "7ea889e87054ca548a6c6384dd1b27ed165b5d7e44123843f2a95193783c8633",
+  "review_policy": {
+    "always_review": [
+      "privacy_or_secret_detection",
+      "malformed_input",
+      "obvious_domain_mismatch",
+      "configured_high_risk_intent"
+    ],
+    "confidence_threshold": 0.0,
+    "high_risk_intents": [
+      "cash_withdrawal_not_recognised",
+      "card_payment_not_recognised",
+      "compromised_card",
+      "direct_debit_payment_not_recognised",
+      "lost_or_stolen_card",
+      "lost_or_stolen_phone",
+      "verify_source_of_funds",
+      "unable_to_verify_identity"
+    ],
+    "objective": "maximize validation automated coverage subject to <=5% selective error",
+    "portfolio_policy_not_production_validated": true,
+    "top_one_top_two_margin_threshold": 0.4
+  },
+  "review_policy_config_sha256": "c8ded536a318323484a30dd5749cf9b8815ffa843f9cc0be5f7534eaae20df3c",
+  "split_manifest_sha256": "2b11d946e481a6f2e14d8b7c3229a99d7a2258cd8e5ce3b7ec173f462a273225",
+  "test_protocol": {
+    "confidence_level": 0.95,
+    "cpu_latency_repetitions": 200,
+    "cpu_latency_warmup": 20,
+    "paired_bootstrap_iterations": 3000,
+    "paired_bootstrap_seed": 20260923
+  },
+  "version": "1.0.0"
+}

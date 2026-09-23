@@ -1,0 +1,7 @@
+true_routing_group,rows,errors,error_rate
+account_currency_and_identity,440,40,0.09090909090909091
+cards_and_devices,1280,106,0.0828125
+cash_withdrawals,280,22,0.07857142857142857
+payments_and_refunds,200,16,0.08
+top_ups_and_deposits,440,40,0.09090909090909091
+transfers,440,61,0.13863636363636364

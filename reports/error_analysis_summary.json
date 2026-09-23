@@ -1,0 +1,106 @@
+{
+  "champion": "baseline",
+  "intent_errors": 285,
+  "official_labels_changed": false,
+  "proxy_warning": "Spelling, missing-context, ambiguity, and possible-annotation-error counts are conservative review-queue heuristics, not adjudicated labels. No official label was changed.",
+  "review_queue_flags_among_errors": {
+    "genuine_ambiguity_proxy": 56,
+    "high_risk_consequence": 50,
+    "missing_context_proxy": 1,
+    "possible_annotation_error_proxy": 1,
+    "redacted": 0,
+    "spelling_variation_proxy": 1
+  },
+  "routing_group_errors": 91,
+  "selective_classification": {
+    "automated_rows": 2503,
+    "champion": "baseline",
+    "coverage": 0.8126623376623376,
+    "reason_counts_nonexclusive": {
+      "high_risk_intent": 321,
+      "low_confidence": 0,
+      "small_top_two_margin": 284
+    },
+    "review_rows": 577,
+    "selective_error": 0.04594486616060727,
+    "thresholds_selected_on_validation_only": true
+  },
+  "test_rows": 3080,
+  "top_confusion_pairs": [
+    {
+      "champion_prediction": "pending_transfer",
+      "errors": 5,
+      "true_label": "balance_not_updated_after_bank_transfer"
+    },
+    {
+      "champion_prediction": "card_not_working",
+      "errors": 4,
+      "true_label": "card_acceptance"
+    },
+    {
+      "champion_prediction": "card_delivery_estimate",
+      "errors": 4,
+      "true_label": "card_arrival"
+    },
+    {
+      "champion_prediction": "top_up_reverted",
+      "errors": 4,
+      "true_label": "top_up_failed"
+    },
+    {
+      "champion_prediction": "balance_not_updated_after_bank_transfer",
+      "errors": 4,
+      "true_label": "transfer_timing"
+    },
+    {
+      "champion_prediction": "verify_my_identity",
+      "errors": 4,
+      "true_label": "unable_to_verify_identity"
+    },
+    {
+      "champion_prediction": "unable_to_verify_identity",
+      "errors": 4,
+      "true_label": "why_verify_identity"
+    },
+    {
+      "champion_prediction": "transfer_not_received_by_recipient",
+      "errors": 3,
+      "true_label": "balance_not_updated_after_bank_transfer"
+    },
+    {
+      "champion_prediction": "direct_debit_payment_not_recognised",
+      "errors": 3,
+      "true_label": "card_payment_not_recognised"
+    },
+    {
+      "champion_prediction": "getting_virtual_card",
+      "errors": 3,
+      "true_label": "disposable_card_limits"
+    },
+    {
+      "champion_prediction": "exchange_via_app",
+      "errors": 3,
+      "true_label": "fiat_currency_support"
+    },
+    {
+      "champion_prediction": "top_up_failed",
+      "errors": 3,
+      "true_label": "pending_top_up"
+    },
+    {
+      "champion_prediction": "failed_transfer",
+      "errors": 3,
+      "true_label": "pending_transfer"
+    },
+    {
+      "champion_prediction": "card_not_working",
+      "errors": 3,
+      "true_label": "pin_blocked"
+    },
+    {
+      "champion_prediction": "top_up_failed",
+      "errors": 3,
+      "true_label": "top_up_reverted"
+    }
+  ]
+}

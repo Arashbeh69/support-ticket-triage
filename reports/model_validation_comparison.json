@@ -1,0 +1,58 @@
+{
+  "baseline": {
+    "calibrated": {
+      "accuracy": 0.9017094017094017,
+      "ece": 0.010083842305326373,
+      "log_loss": 0.33436514656108035,
+      "macro_f1": 0.9019307460214905,
+      "multiclass_brier": 0.14522705950564588,
+      "top_3_accuracy": 0.9743589743589743,
+      "weighted_f1": 0.9014608501622459
+    },
+    "raw": {
+      "accuracy": 0.9017094017094017,
+      "ece": 0.15967799244440212,
+      "log_loss": 0.4983022552469272,
+      "macro_f1": 0.9019307460214905,
+      "multiclass_brier": 0.1882487717385163,
+      "top_3_accuracy": 0.9743589743589743,
+      "weighted_f1": 0.9014608501622459
+    },
+    "temperature": 0.5674475741075865
+  },
+  "review_thresholds": {
+    "automated_rows": 1124,
+    "confidence": 0.0,
+    "coverage": 0.8005698005698005,
+    "margin": 0.4,
+    "selective_error": 0.04715302491103203
+  },
+  "selection": {
+    "champion": "baseline",
+    "official_test_used": false,
+    "reason": "transformer did not clear the prespecified operational gain rule",
+    "transformer_macro_f1_gain": 0.0037583023761894596,
+    "transformer_weighted_f1_regression": -0.008361803718574534
+  },
+  "transformer": {
+    "calibrated": {
+      "accuracy": 0.9102564102564102,
+      "ece": 0.016633047061598207,
+      "log_loss": 0.3343881368637085,
+      "macro_f1": 0.9056890483976799,
+      "multiclass_brier": 0.13989734839566523,
+      "top_3_accuracy": 0.9786324786324786,
+      "weighted_f1": 0.9098226538808204
+    },
+    "raw": {
+      "accuracy": 0.9102564102564102,
+      "ece": 0.15081641351820058,
+      "log_loss": 0.4663890302181244,
+      "macro_f1": 0.9056890483976799,
+      "multiclass_brier": 0.1668511959712158,
+      "top_3_accuracy": 0.9786324786324786,
+      "weighted_f1": 0.9098226538808204
+    },
+    "temperature": 0.661285853382423
+  }
+}

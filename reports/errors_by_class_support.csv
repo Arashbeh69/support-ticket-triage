@@ -1,0 +1,4 @@
+support_bin,rows,errors,error_rate
+development support 75-124,1240,107,0.08629032258064516
+development support <75,160,25,0.15625
+development support >=125,1680,153,0.09107142857142857
