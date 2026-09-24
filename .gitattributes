@@ -1,0 +1,7 @@
+# Keep ordinary source, configuration, documentation, and reports LF-stable.
+* text=auto eol=lf
+
+# These immutable historical records were frozen and hashed as CRLF bytes.
+# Store them verbatim and treat them as binary for whitespace-diff checks.
+manifests/split_manifest.csv -text -diff
+configs/evaluation.json -text -diff
