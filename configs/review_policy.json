@@ -8,6 +8,11 @@
   "margin_grid": [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5],
   "champion_minimum_macro_f1_gain": 0.01,
   "champion_maximum_weighted_f1_regression": 0.002,
+  "domain_keyword_policy": {
+    "type": "transparent_keyword_guardrail",
+    "review_reason_when_absent": "no_domain_keyword_detected",
+    "trained_ood_detector": false
+  },
   "domain_terms": [
     "account",
     "bank",
@@ -22,6 +27,7 @@
     "direct debit",
     "exchange",
     "fee",
+    "passcode",
     "payment",
     "pin",
     "refund",

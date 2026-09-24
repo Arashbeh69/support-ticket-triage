@@ -249,7 +249,7 @@ def main() -> None:
             "always_review": [
                 "privacy_or_secret_detection",
                 "malformed_input",
-                "obvious_domain_mismatch",
+                "no_domain_keyword_detected",
                 "configured_high_risk_intent",
             ],
             "high_risk_intents": audit_config["high_risk_intents"],

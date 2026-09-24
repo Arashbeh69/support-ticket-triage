@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import re
 import unicodedata
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import joblib
 import numpy as np
@@ -22,6 +24,15 @@ from support_ticket_triage.text import detect_sensitive, normalize_text, redact_
 
 class InputValidationError(ValueError):
     """Input cannot be safely scored and must be handled outside automation."""
+
+
+ReviewReason = Literal[
+    "low_confidence",
+    "small_top_two_margin",
+    "privacy_or_secret_detection",
+    "no_domain_keyword_detected",
+    "high_risk_intent",
+]
 
 
 @dataclass(frozen=True)
@@ -40,9 +51,10 @@ class Prediction:
     calibrated_confidence: float
     top_three: list[Candidate]
     review_required: bool
-    review_reasons: list[str]
+    review_reasons: list[ReviewReason]
     model_name: str
     model_version: str
+    review_policy_version: str
 
     def as_dict(self) -> dict[str, Any]:
         result = asdict(self)
@@ -75,6 +87,30 @@ def _routing_lookup(groups: dict[str, list[str]]) -> dict[str, str]:
     return lookup
 
 
+def contains_domain_keyword(text: str, domain_terms: list[str]) -> bool:
+    """Return whether a configured whole keyword or phrase occurs in normalized text.
+
+    This transparent lexical guardrail is deliberately separate from model confidence. It
+    is not a trained out-of-distribution detector.
+    """
+    lowered = text.casefold()
+    return any(
+        re.search(rf"(?<!\w){re.escape(term.casefold())}(?!\w)", lowered) is not None
+        for term in domain_terms
+    )
+
+
+def canonical_review_policy_version(policy: dict[str, Any]) -> str:
+    """Return a cross-platform short hash of canonical review-policy JSON."""
+    payload = json.dumps(
+        policy,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()[:16]
+
+
 def decision_from_probabilities(
     probabilities: np.ndarray,
     labels: np.ndarray,
@@ -82,9 +118,10 @@ def decision_from_probabilities(
     routing: dict[str, str],
     policy: dict[str, Any],
     privacy_detected: bool,
-    domain_mismatch: bool,
+    no_domain_keyword_detected: bool,
     model_name: str,
     model_version: str,
+    review_policy_version: str,
 ) -> Prediction:
     """Build the prediction contract and nonexclusive review reasons."""
     if probabilities.shape != (len(labels),):
@@ -92,15 +129,15 @@ def decision_from_probabilities(
     ordering = np.argsort(probabilities)[::-1]
     predicted = str(labels[ordering[0]])
     confidence, margin = confidence_and_margin(probabilities[None, :])
-    reasons: list[str] = []
+    reasons: list[ReviewReason] = []
     if float(confidence[0]) < float(policy["confidence_threshold"]):
         reasons.append("low_confidence")
     if float(margin[0]) < float(policy["top_one_top_two_margin_threshold"]):
         reasons.append("small_top_two_margin")
     if privacy_detected:
         reasons.append("privacy_or_secret_detection")
-    if domain_mismatch:
-        reasons.append("obvious_domain_mismatch")
+    if no_domain_keyword_detected:
+        reasons.append("no_domain_keyword_detected")
     if predicted in set(policy["high_risk_intents"]):
         reasons.append("high_risk_intent")
     top_three = [
@@ -122,6 +159,7 @@ def decision_from_probabilities(
         review_reasons=reasons,
         model_name=model_name,
         model_version=model_version,
+        review_policy_version=review_policy_version,
     )
 
 
@@ -146,15 +184,15 @@ class InferenceEngine:
                 (project_root / "configs" / "routing_groups.json").read_text(encoding="utf-8")
             )
         )
-        self.input_policy = json.loads(
-            (project_root / "configs" / "review_policy.json").read_text(encoding="utf-8")
-        )
+        review_policy_path = project_root / "configs" / "review_policy.json"
+        self.input_policy = json.loads(review_policy_path.read_text(encoding="utf-8"))
         self.evaluation = json.loads(
             (project_root / "configs" / "evaluation.json").read_text(encoding="utf-8")
         )
         self.review_policy = self.evaluation["review_policy"]
         self.model_name = str(self.evaluation["champion"])
         self.model_version = sha256_file(project_root / "configs" / "evaluation.json")[:16]
+        self.review_policy_version = canonical_review_policy_version(self.input_policy)
         self._load_model()
 
     @classmethod
@@ -217,8 +255,9 @@ class InferenceEngine:
         normalized = validate_and_normalize(text, self.input_policy)
         detections = detect_sensitive(normalized)
         model_text = redact_text(normalized, detections)
-        lowered = normalized.casefold()
-        domain_mismatch = not any(term in lowered for term in self.input_policy["domain_terms"])
+        no_domain_keyword_detected = not contains_domain_keyword(
+            normalized, self.input_policy["domain_terms"]
+        )
         probabilities = self._probabilities(model_text)
         return decision_from_probabilities(
             probabilities,
@@ -227,9 +266,10 @@ class InferenceEngine:
             self.routing,
             self.review_policy,
             bool(detections),
-            domain_mismatch,
+            no_domain_keyword_detected,
             self.model_name,
             self.model_version,
+            self.review_policy_version,
         )
 
     def metadata(self) -> dict[str, Any]:
@@ -237,6 +277,7 @@ class InferenceEngine:
         return {
             "model_name": self.model_name,
             "model_version": self.model_version,
+            "review_policy_version": self.review_policy_version,
             "source_labels": len(self.labels),
             "language": "English",
             "domain": "banking support intents",
@@ -244,6 +285,7 @@ class InferenceEngine:
             "limitations": [
                 "no explicit unknown-intent class",
                 "confidence is not correctness",
+                "domain review is a transparent keyword guardrail, not a trained OOD detector",
                 "abstention is not proven open-set detection",
                 "not financial, security, fraud, or identity-verification advice",
             ],

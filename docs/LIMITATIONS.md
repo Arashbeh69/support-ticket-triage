@@ -15,8 +15,11 @@
   shift.
 - Confidence is not correctness. Temperature scaling improves a measured
   calibration objective but does not create an open-set guarantee.
-- Abstention and domain-mismatch rules are portfolio design proposals, not
-  production-validated banking policy.
+- The domain rule is a transparent configured-keyword guardrail, not a trained
+  out-of-distribution detector. It can produce false positives and false
+  negatives; abstention is not proof of open-set detection.
+- Authored synthetic policy cases are regression checks, not statistically
+  representative evaluation or production validation.
 - High-risk review rules reduce automation by design but do not prove that all
   harmful routing errors are captured.
 - There is no production deployment, live monitoring, human-operations study,

@@ -1,0 +1,31 @@
+{
+  "classification": "synthetic regression checks; not production validation",
+  "description": "Authored examples for the transparent keyword guardrail. They contain no customer data and are not statistically representative.",
+  "cases": [
+    {
+      "id": "passcode_generic_app",
+      "text": "I forgot the passcode for the app and cannot log in",
+      "domain_keyword_expected": true
+    },
+    {
+      "id": "passcode_banking_app",
+      "text": "I forgot the passcode for my banking app and cannot log in",
+      "domain_keyword_expected": true
+    },
+    {
+      "id": "card_payment",
+      "text": "Why was my card payment declined?",
+      "domain_keyword_expected": true
+    },
+    {
+      "id": "sourdough",
+      "text": "How do I bake sourdough bread?",
+      "domain_keyword_expected": false
+    },
+    {
+      "id": "garden",
+      "text": "When should I plant tomatoes in my garden?",
+      "domain_keyword_expected": false
+    }
+  ]
+}

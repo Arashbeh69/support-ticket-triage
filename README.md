@@ -48,8 +48,18 @@ text-free evidence only.
 
 The validation-selected review policy automatically retains 81.27% of official
 test rows at 4.59% selective error. Configured high-risk intents, detected
-sensitive patterns, malformed inputs, and obvious domain mismatches always go
-to review. This is a measured portfolio policy, not production validation.
+sensitive patterns, malformed inputs, and inputs with no configured domain
+keyword go to review. These nonexclusive rules operate independently: high
+model confidence does not disable another applicable safety rule. This is a
+measured portfolio policy, not production validation.
+
+The domain check is a transparent whole-keyword/phrase guardrail, including
+`passcode`; it is not a trained out-of-distribution (OOD) detector. It can
+produce both false positives and false negatives, and abstention is not proof
+of open-set detection. The authored
+[synthetic policy cases](tests/fixtures/synthetic_domain_policy_cases.json) are
+regression checks only, not production validation or a statistically
+representative evaluation.
 
 See the [model card](docs/MODEL_CARD.md), [data card](docs/DATA_CARD.md),
 [error analysis](reports/ERROR_ANALYSIS.md), and
@@ -72,7 +82,14 @@ $env:SUPPORT_TRIAGE_PRIVATE_ROOT = "D:\path\to\support-ticket-triage-ml-private"
 Endpoints are `GET /health`, `GET /metadata`, and `POST /predict`. The local
 demo is at `http://127.0.0.1:8000/demo/`. Prediction responses include the top
 three intents, calibrated confidence, routing group, and nonexclusive review
-reasons. Application logs exclude raw message text.
+reasons. The current reason contract is `low_confidence`,
+`small_top_two_margin`, `privacy_or_secret_detection`,
+`no_domain_keyword_detected`, and `high_risk_intent`. Application logs exclude
+raw message text. Prediction and metadata responses expose a separate
+`review_policy_version`, the first 16 hexadecimal characters of the active
+canonical review-policy JSON's SHA-256. This identifies runtime-policy changes
+without changing the frozen `model_version` and is stable across line-ending
+and JSON-key-order differences.
 
 For the container, mount the private artifact sibling read-only:
 

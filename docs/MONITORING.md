@@ -16,8 +16,11 @@ deployment. Raw user text should not be logged by default.
 - Character, byte, and token-length distributions and truncation rate.
 - Control-character and malformed-input rejection rate.
 - Sensitive-pattern detection rate by rule, reported only in aggregate.
-- Domain-mismatch and vocabulary/OOV proxies. Embedding drift is justified only
-  if the transformer is deployed and a stable, privacy-reviewed reference
+- Aggregate `no_domain_keyword_detected` counts from the transparent keyword
+  guardrail, reported separately from vocabulary/OOV proxies. This signal can
+  have false positives and false negatives and must not be reported as trained
+  OOD or validated open-set detection. Embedding drift is justified only if the
+  transformer is deployed and a stable, privacy-reviewed reference
   representation is retained.
 
 ## Prediction and review behavior

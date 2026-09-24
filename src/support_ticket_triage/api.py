@@ -12,7 +12,11 @@ from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.staticfiles import StaticFiles
 
-from support_ticket_triage.inference import InferenceEngine, InputValidationError
+from support_ticket_triage.inference import (
+    InferenceEngine,
+    InputValidationError,
+    ReviewReason,
+)
 
 LOGGER = logging.getLogger("support_ticket_triage.api")
 
@@ -36,9 +40,10 @@ class PredictionResponse(BaseModel):
     calibrated_confidence: float
     top_three: list[CandidateResponse]
     review_required: bool
-    review_reasons: list[str]
+    review_reasons: list[ReviewReason]
     model_name: str
     model_version: str
+    review_policy_version: str
 
 
 def create_app(engine: InferenceEngine | None = None) -> FastAPI:

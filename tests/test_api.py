@@ -10,7 +10,11 @@ from support_ticket_triage.inference import Candidate, InputValidationError, Pre
 
 class FakeEngine:
     def metadata(self):
-        return {"model_name": "synthetic", "model_version": "test"}
+        return {
+            "model_name": "synthetic",
+            "model_version": "test",
+            "review_policy_version": "policy-test",
+        }
 
     def predict(self, text: str) -> Prediction:
         if "invalid" in text:
@@ -23,7 +27,16 @@ class FakeEngine:
             Candidate("intent_c", "Intent C", "group", 0.05),
         ]
         return Prediction(
-            "intent_a", "Intent A", "group", 0.8, candidates, False, [], "synthetic", "test"
+            predicted_intent="intent_a",
+            display_name="Intent A",
+            routing_group="group",
+            calibrated_confidence=0.8,
+            top_three=candidates,
+            review_required=False,
+            review_reasons=[],
+            model_name="synthetic",
+            model_version="test",
+            review_policy_version="policy-test",
         )
 
 
@@ -36,6 +49,7 @@ def test_api_contracts_and_logs_do_not_include_raw_text(caplog) -> None:
         response = client.post("/predict", json={"text": authored_text})
     assert response.status_code == 200
     assert response.json()["predicted_intent"] == "intent_a"
+    assert response.json()["review_policy_version"] == "policy-test"
     assert len(response.json()["top_three"]) == 3
     assert authored_text not in caplog.text
 

@@ -69,6 +69,11 @@ reports contain no source utterance text.
 ## Safety and limitations
 
 - There is no explicit unknown-intent class or validated open-set detector.
+- The domain rule only checks for configured whole keywords or phrases. It is a
+  transparent heuristic that can produce false positives and false negatives,
+  not a trained OOD detector. Abstention is not proof of open-set detection.
+- Synthetic domain-policy cases are regression checks, not production
+  validation or statistically representative evaluation.
 - Confidence is not correctness, and calibration may drift in live traffic.
 - The balanced benchmark does not represent production prevalence or impact.
 - Privacy detection is rule based and cannot prove anonymization.
@@ -77,7 +82,8 @@ reports contain no source utterance text.
 - Project-created routing groups have no source or business-process ground
   truth.
 - High-risk review rules reduce automation but do not prove all harmful errors
-  are caught.
+  are caught. Review reasons are nonexclusive, and high confidence does not
+  disable privacy, high-risk, domain-keyword, or margin rules.
 
 Any real deployment would require privacy, security, fairness, operational,
 human-factors, open-set, drift, and domain-specific validation.
@@ -86,6 +92,8 @@ human-factors, open-set, drift, and domain-specific validation.
 
 The source revision, model revision, split, preprocessing, artifacts,
 calibration, review policy, and evaluation configuration have public hashes.
+Serving responses report the frozen evaluation-derived model version and a
+separate short SHA-256 of the active runtime review policy.
 Raw text, predictions, training logs, and model artifacts remain private. The
 first transformer attempt was rejected before epoch one because deterministic
 CUDA requirements were not satisfied; the corrected run and a two-trial
